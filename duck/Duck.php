@@ -18,6 +18,27 @@ class FlyWithWings implements FlyBehavior{
 }
 
 /**
+ * 无法飞行 实现 FlyBehavior
+ * Class FlyNoWay
+ */
+class FlyNoWay implements  FlyBehavior{
+    public function fly(){
+        var_dump("I cannot fly");
+    }
+}
+
+/**
+ * 火箭能量飞行 实现 FlyBehavior
+ * Class FlyRocket
+ */
+class FlyRocketPowered implements  FlyBehavior {
+    public function fly()
+    {
+        var_dump("I am flying with a rocket!!");
+    }
+}
+
+/**
  * 嘎嘎叫接口
  * Interface QuackBehavior
  */
@@ -66,10 +87,22 @@ abstract class Duck{
      * @var FlyBehavior
      */
     protected $flyBehavior;
+
     /**
+     * 设置飞行行为
+     * @param FlyBehavior $f
+     */
+    public function setFlyBehavior(FlyBehavior $f) {
+        $this->flyBehavior = $f;
+    }
+    /**
+     * 设置嘎嘎叫行为
      * @var QuackBehavior
      */
     protected $quackBehavior;
+    public function setQuackBehavior(QuackBehavior $q) {
+        $this->quackBehavior = $q;
+    }
 
 
     /**
@@ -96,8 +129,11 @@ abstract class Duck{
     }
 }
 
+/**
+ * 绿毛鸭类
+ * Class MallardDuck
+ */
 class MallardDuck extends Duck{
-
     /**
      * 创建 绿毛鸭对象
      * MallardDuck constructor.
@@ -113,9 +149,34 @@ class MallardDuck extends Duck{
     public function display(){
         echo ' I am a Mallard Duck.';
     }
+}
+
+/**
+ * 模型鸭
+ * Class ModelDuck
+ */
+class ModelDuck extends Duck{
+    /**
+     * 创建 模型鸭对象
+     * MallardDuck constructor.
+     */
+    public function __construct(){
+        $this->quackBehavior = new QuackLoud();//大声叫的鸭子
+        $this->flyBehavior = new FlyNoWay();//不会飞
+    }
+
+    public function display()
+    {
+       var_dump("I am a Model Duck!");
+    }
 
 }
 //测试代码
 $mallard = new MallardDuck();
 $mallard->performQuack();
 $mallard->performFly();
+$model = new ModelDuck();
+$model->performFly();//一开始不会飞
+$f = new FlyRocketPowered();
+$model->setFlyBehavior($f);//赋予火箭飞行能力
+$model->performFly();//会飞了
