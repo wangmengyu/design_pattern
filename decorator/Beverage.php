@@ -13,11 +13,34 @@
 abstract class Beverage{
     protected $desc;
     protected $price;
+    protected $size;
+    protected $sizePrice = [
+        'tall'=>0.1,
+        'grande'=>0.15,
+        'venti'=>0.2,
+    ];
     public  function getDescription(){
         return $this->desc;
     }
     public function getPrice(){
         return $this->price;
+    }
+    public function getSize(){
+        return $this->size;
+    }
+    public function setSize($size){
+        $this->size = $size;
+    }
+
+    /**
+     * 获得杯型价格
+     * @return int|mixed
+     */
+    public function getSizePrice(){
+        if (isset($this->sizePrice[$this->size])) {
+            return $this->sizePrice[$this->size];
+        }
+        return 0;
     }
     public abstract function cost();
 }
@@ -191,7 +214,14 @@ $soy = new Soy($coffee);
 $mochaOne = new Mocha($soy);
 $mochaTwo = new Mocha($mochaOne);
 $whip = new Whip($mochaTwo);
-var_dump('total:' . $whip->getDescription() . ' cost:' . $whip->cost());
+$coffee->setSize('tall');
+$total = $coffee->getSizePrice()+$whip->cost();
+var_dump('total:' . $whip->getDescription()
+    . ' base cost:' . $whip->cost()
+    . ' size price:'
+    . $coffee->getSizePrice()
+    .'total:' . $total)
+;
 
 
 
