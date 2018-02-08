@@ -14,22 +14,44 @@ abstract class Beverage{
     protected $desc;
     protected $price;
     protected $size;
+
+    const SIZE_TALL = 1;//中杯
+    const SIZE_GRANDE = 2;//大杯
+    const SIZE_VENTI = 3;//超大杯
+
     protected $sizePrice = [
-        'tall'=>0.1,
-        'grande'=>0.15,
-        'venti'=>0.2,
+        self::SIZE_TALL=>0.1,
+        self::SIZE_GRANDE=>0.15,
+        self::SIZE_VENTI=>0.2,
     ];
+    protected $sizeName = [
+        self::SIZE_TALL=>'Tall',
+        self::SIZE_GRANDE=>'Grande',
+        self::SIZE_VENTI=>'Venti',
+    ];
+
     public  function getDescription(){
+        if (!empty($this->getSizeName())) {
+            return $this->getSizeName().' '.$this->desc;
+        }
         return $this->desc;
     }
+
     public function getPrice(){
-        return $this->price;
+        return $this->price+$this->getSizePrice();
     }
     public function getSize(){
         return $this->size;
     }
     public function setSize($size){
         $this->size = $size;
+    }
+
+    public function getSizeName(){
+        if (isset($this->sizeName[$this->size])) {
+            return $this->sizeName[$this->size];
+        }
+        return '';
     }
 
     /**
@@ -78,8 +100,9 @@ abstract class CondimentDecorator extends Beverage{
      */
     public function cost()
     {
-       var_dump('+ [item]:' . $this->desc . ' [price]' . $this->getPrice());
-       return $this->beverage->cost()+$this->getPrice();
+       var_dump('[Condiment Item]:' . $this->desc . ' [price]' . $this->getPrice());
+       $sizePrice = $this->beverage->getSizePrice();
+       return $this->beverage->cost()+$this->getPrice()+$sizePrice;
     }
 }
 
@@ -209,19 +232,14 @@ class Whip extends CondimentDecorator{
 
 //测试代码，双倍摩卡豆浆奶泡拿铁：中度烘焙+豆浆+2份摩卡+奶泡
 $coffee = new HouseBlend();
-var_dump('base coffee:' . $coffee->getDescription(). ' ' . $coffee->getPrice());
+$coffee->setSize(Beverage::SIZE_TALL);
+var_dump('base coffee:' . $coffee->getSizeName().','.$coffee->getDescription(). ' ' . $coffee->getPrice());
 $soy = new Soy($coffee);
 $mochaOne = new Mocha($soy);
 $mochaTwo = new Mocha($mochaOne);
 $whip = new Whip($mochaTwo);
-$coffee->setSize('tall');
-$total = $coffee->getSizePrice()+$whip->cost();
-var_dump('total:' . $whip->getDescription()
-    . ' base cost:' . $whip->cost()
-    . ' size price:'
-    . $coffee->getSizePrice()
-    .'total:' . $total)
-;
+var_dump($whip->getDescription().':'. $whip->cost());
+
 
 
 
