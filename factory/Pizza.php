@@ -115,8 +115,3 @@ class ChicagoVeggiePizza extends VeggiePizza {
 class CAVeggiePizza extends VeggiePizza {
 
 }
-
-
-
-
-
