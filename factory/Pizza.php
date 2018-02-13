@@ -34,11 +34,20 @@ class Pizza{
         print_r("[切片]把披萨切成斜片");
     }
     public function box(){
-        print_r("[打包]pizza");
+        print_r("[打包]".$this->getName());
     }
 
     public function getName(){
         return $this->name;
+    }
+}
+class SimpleCheesePizza extends Pizza {
+    public function __construct()
+    {
+        $this->name = "标准芝士批萨";//纽约风味芝士批萨
+        $this->dough = "普通面饼";//薄饼
+        $this->sauce = "纯番茄酱";//纯番茄酱
+        $this->toppings = ['马力苏干酪']; //碎雷奇亚干酪奶酪
     }
 }
 class CheesePizza extends Pizza {

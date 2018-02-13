@@ -17,7 +17,7 @@ abstract class PizzaStore{
      * @param $type
      * @return Pizza $pizza;
      */
-    abstract function createPizza($type);//必须由子类实现的抽象工厂方法
+    abstract function createPizza($type);//由子类实现的抽象工厂方法
 
     /**
      *  pizza订单方法：
