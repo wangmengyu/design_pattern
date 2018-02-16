@@ -41,6 +41,7 @@ abstract class PizzaStore{
  */
 class NYPizzaStore extends PizzaStore{
 
+    protected $ingredientFactory;
     /**
      * 制作pizza. 每个店有自己不同的创建方式，必须被实现
      * @param $type
@@ -49,14 +50,19 @@ class NYPizzaStore extends PizzaStore{
     function createPizza($type)
     {
         $pizza = null;
+        $this->ingredientFactory = new NYPizzaIngredientFactory();
         if ($type == 'cheese') {
-            $pizza = new NYCheesePizza();
+            $pizza = new CheesePizza($this->ingredientFactory);
+            $pizza->setName("纽约风格芝士批萨");
         } else if ($type == 'pepperoni') {
-            $pizza = new NYPepperoniPizza();
+            $pizza = new PepperoniPizza($this->ingredientFactory);
+            $pizza->setName("纽约风格香肠批萨");
         } else if ($type == 'clam') {
-            $pizza = new NYClamPizza();
+            $pizza = new ClamPizza($this->ingredientFactory);
+            $pizza->setName("纽约风格蛤蜊批萨");
         } else if ($type == 'veggie') {
-            $pizza = new NYVeggiePizza();
+            $pizza = new VeggiePizza($this->ingredientFactory);
+            $pizza->setName("纽约风格蔬菜批萨");
         }
         return $pizza;
     }
@@ -68,6 +74,7 @@ class NYPizzaStore extends PizzaStore{
  */
 class ChicagoPizzaStore extends PizzaStore{
 
+    protected $ingredientFactory;
     /**
      * 制作pizza. 每个店有自己不同的创建方式，必须被实现
      * @param $type
@@ -75,42 +82,20 @@ class ChicagoPizzaStore extends PizzaStore{
      */
     function createPizza($type)
     {
+        $this->ingredientFactory = new ChicagoPizzaIngredientFactory();
         $pizza = null;
         if ($type == 'cheese') {
-            $pizza = new ChicagoCheesePizza();
+            $pizza = new CheesePizza($this->ingredientFactory);
+            $pizza->setName("芝加哥风格芝士批萨");
         } else if ($type == 'pepperoni') {
-            $pizza = new ChicagoPepperoniPizza();
+            $pizza = new PepperoniPizza($this->ingredientFactory);
+            $pizza->setName("芝加哥风格香肠批萨");
         } else if ($type == 'clam') {
-            $pizza = new ChicagoClamPizza();
+            $pizza = new ClamPizza($this->ingredientFactory);
+            $pizza->setName("芝加哥蛤蜊批萨");
         } else if ($type == 'veggie') {
-            $pizza = new ChicagoVeggiePizza();
-        }
-        return $pizza;
-    }
-}
-
-/**
- * 加州加盟店
- * Class CAPizzaStore
- */
-class CAPizzaStore extends PizzaStore{
-
-    /**
-     * 制作pizza. 每个店有自己不同的创建方式，必须被实现
-     * @param $type
-     * @return Pizza $pizza;
-     */
-    function createPizza($type)
-    {
-        $pizza = null;
-        if ($type == 'cheese') {
-            $pizza = new CACheesePizza();
-        } else if ($type == 'pepperoni') {
-            $pizza = new CAPepperoniPizza();
-        } else if ($type == 'clam') {
-            $pizza = new CAClamPizza();
-        } else if ($type == 'veggie') {
-            $pizza = new CAVeggiePizza();
+            $pizza = new VeggiePizza($this->ingredientFactory);
+            $pizza->setName("芝加哥风格蔬菜批萨");
         }
         return $pizza;
     }
