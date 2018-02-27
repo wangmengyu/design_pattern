@@ -7,7 +7,7 @@ namespace DesignPatern\BasicCommand;
  * Date: 18-2-27
  * Time: 上午9:47
  */
-class LightOnCommand implements Command{
+class LightOffCommand implements Command{
     /**
      * @var Light
      */
@@ -15,7 +15,6 @@ class LightOnCommand implements Command{
     public function __construct($light)
     {
         $this->light = $light;
-
     }
     /**
      * 执行方法，所有命令对象会实现此方法
@@ -24,7 +23,7 @@ class LightOnCommand implements Command{
     public function execute()
     {
         // TODO: Implement execute() method.
-        $this->light->on();
+        $this->light->off();
     }
 
 }
