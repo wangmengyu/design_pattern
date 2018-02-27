@@ -1,5 +1,5 @@
 <?php
-namespace DesignPatern\Command;
+namespace DesignPatern\BasicCommand;
 /**
  * 开车库门命令对象
  * Created by PhpStorm.
@@ -25,6 +25,6 @@ class GarageDoorOpenCommand implements Command{
     public function execute()
     {
         // TODO: Implement execute() method.
-        $this->garageDoor->lightOn();
+        $this->garageDoor->up();
     }
 }

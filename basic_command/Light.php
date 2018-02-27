@@ -1,5 +1,5 @@
 <?php
-namespace DesignPatern\Command;
+namespace DesignPatern\BasicCommand;
 /**
  * Created by PhpStorm.
  * User: wangmengyu

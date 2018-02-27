@@ -1,5 +1,5 @@
 <?php
-namespace DesignPatern\Command;
+namespace DesignPatern\BasicCommand;
 /**
  * 简单遥控器
  * Created by PhpStorm.

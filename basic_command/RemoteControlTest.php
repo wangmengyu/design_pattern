@@ -1,5 +1,5 @@
 <?php
-namespace DesignPatern\Command;
+namespace DesignPatern\BasicCommand;
 require_once __DIR__.'/Command.php';
 require_once __DIR__.'/Light.php';
 require_once __DIR__.'/LightOnCommand.php';

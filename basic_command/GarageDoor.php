@@ -1,14 +1,15 @@
 <?php
-namespace DesignPatern\Command;
+namespace DesignPatern\BasicCommand;
 class GarageDoor{
     public function up(){
+        var_dump('车库门开了');
 
     }
     public function down(){
 
     }
     public function lightOn(){
-        var_dump('车库灯开了');
+
     }
     public function lightOff(){
 

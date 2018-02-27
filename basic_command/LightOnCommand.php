@@ -1,5 +1,5 @@
 <?php
-namespace DesignPatern\Command;
+namespace DesignPatern\BasicCommand;
 /**
  * 开灯命令对象
  * Created by PhpStorm.
