@@ -79,7 +79,7 @@ $remoteControl->setCommand(2,$ceilingFanOnCommend,$ceilingFanOffCommend);
 $remoteControl->setCommand(3,$stereoOnWithCd,$stereoOffWithCd);
 
 //打印每个插槽具体类名
-var_dump($remoteControl);
+echo ($remoteControl);
 $remoteControl->onButtonWasPushed(0);
 $remoteControl->offButtonWasPushed(0);
 $remoteControl->onButtonWasPushed(1);

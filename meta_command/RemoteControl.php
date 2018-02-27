@@ -25,6 +25,7 @@ class RemoteControl{
 
     public function __construct()
     {
+        //防止越界访问，设计NoCommand处理异常
         $command = new NoCommand();
         for($i = 0 ; $i < 7; ++$i) {
             $this->onCommands[] = $command;
@@ -75,9 +76,12 @@ class RemoteControl{
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        $str = '----remote control---';
+        $str = '----remote control---
+        ';
         for($i=0; $i<7; ++$i) {
-            $str.= ' [slot ' . $i.']:'.get_class($this->onCommands[$i]) . ','.get_class($this->offCommands[$i]);
+            $str.= ' [slot ' . $i.']:'.get_class($this->onCommands[$i])
+                . ','.get_class($this->offCommands[$i]).'
+                ';
         }
         return $str;
     }
