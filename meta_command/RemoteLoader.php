@@ -19,6 +19,7 @@ require_once __DIR__.'/RemoteControl.php';
 require_once __DIR__.'/Stereo.php';
 require_once __DIR__.'/StereoOffCommand.php';
 require_once __DIR__.'/StereoOnWithCdCommand.php';
+require_once __DIR__.'/RemoteControlWithUndo.php';
 
 /**
  * Created by PhpStorm.
@@ -90,6 +91,23 @@ $remoteControl->onButtonWasPushed(3);
 $remoteControl->offButtonWasPushed(3);
 $remoteControl->onButtonWasPushed(4);
 $remoteControl->offButtonWasPushed(4);
+
+//带着撤销按钮的遥控器
+$remoteControlWithUndo = new RemoteControlWithUndo();
+$remoteControlWithUndo->setCommand(0,$livingRoomLightOn,$livingRoomLightOff);//设置客厅开关按钮一套
+var_dump('---带撤销按钮的遥控器---');
+$remoteControlWithUndo->onButtonWasPushed(0);//开灯,撤销位于开灯按钮
+$remoteControlWithUndo->offButtonWasPushed(0);//关灯，撤销位于关灯按钮
+echo $remoteControlWithUndo;
+$remoteControlWithUndo->undoButtonWasPushed();//撤销，执行撤销[关灯按钮的撤销动作，开出来了]
+$remoteControlWithUndo->offButtonWasPushed(0);//关灯，撤销位于关灯按钮
+$remoteControlWithUndo->onButtonWasPushed(0);//开灯，撤销位于开灯按钮
+echo $remoteControlWithUndo;
+$remoteControlWithUndo->undoButtonWasPushed();//撤销[开灯]按钮的操作
+
+
+
+
 
 
 

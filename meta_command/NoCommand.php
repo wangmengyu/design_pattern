@@ -19,4 +19,9 @@ class NoCommand implements Command{
     {
         // TODO: Implement execute() method.
     }
+
+    public function undo()
+    {
+        // TODO: Implement undo() method.
+    }
 }

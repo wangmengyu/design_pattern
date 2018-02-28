@@ -27,4 +27,10 @@ class CeilingFanOffCommand implements Command{
         // TODO: Implement execute() method.
         $this->ceilingFan->off();
     }
+
+    public function undo()
+    {
+        // TODO: Implement undo() method.
+        $this->ceilingFan->on();
+    }
 }

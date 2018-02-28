@@ -34,4 +34,10 @@ class StereoOffCommand implements Command{
         // TODO: Implement execute() method.
         $this->stereo->off();
     }
+
+    public function undo()
+    {
+        // TODO: Implement undo() method.
+        $this->stereo->on();
+    }
 }
