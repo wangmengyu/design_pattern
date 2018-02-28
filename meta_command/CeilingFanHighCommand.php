@@ -8,12 +8,12 @@ use DesignPatern\BasicCommand\Command;
  * Date: 18-2-27
  * Time: 下午4:08
  */
-class CeilingFanOffCommand implements Command{
+class CeilingFanHighCommand implements Command{
     /**
      * @var CeilingFan;
      */
     protected $ceilingFan;
-    public $prevSpeed;
+    protected $prevSpeed;//上次的转速
     public function __construct($ceilingFan)
     {
         $this->ceilingFan = $ceilingFan;
@@ -28,13 +28,13 @@ class CeilingFanOffCommand implements Command{
     public function execute()
     {
         // TODO: Implement execute() method.
-
         $this->prevSpeed = $this->ceilingFan->getSpeed();
-        $this->ceilingFan->off();
+        $this->ceilingFan->high();
     }
 
     public function undo()
     {
+        // TODO: Implement undo() method.
         if ($this->prevSpeed==CeilingFan::HIGH){
             $this->ceilingFan->high();
         } else if ($this->prevSpeed == CeilingFan::MEDIUM) {

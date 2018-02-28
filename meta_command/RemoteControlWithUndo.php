@@ -61,7 +61,7 @@ class RemoteControlWithUndo{
         $command = $this->onCommands[$slot];
         $command->execute();
         //每个开关命令执行后，设置好当前操作的命令到撤销对象中
-        $this->undoCommand = $this->onCommands[$slot];
+        $this->undoCommand = $command;
     }
 
     /**
@@ -75,7 +75,7 @@ class RemoteControlWithUndo{
         $command = $this->offCommands[$slot];
         $command->execute();
         ////每个开关命令执行后，设置好当前操作的命令到撤销对象中
-        $this->undoCommand = $this->offCommands[$slot];
+        $this->undoCommand = $command;
     }
 
     /**
@@ -99,8 +99,17 @@ class RemoteControlWithUndo{
                 . ','.get_class($this->offCommands[$i]).'
                 ';
         }
+        $str .= ' [undo button]:' . get_class($this->undoCommand).'
+        ';
+        if (isset($this->undoCommand->prevSpeed)){
+            $str .= ' [undo button status]:'. $this->undoCommand->prevSpeed.'
+            ';
+        }
+
         return $str;
     }
+
+
 
 
 

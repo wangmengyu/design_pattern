@@ -12,6 +12,9 @@ require_once __DIR__.'/../basic_command/GarageDoorOpenCommand.php';
 require_once __DIR__.'/CeilingFan.php';
 require_once __DIR__.'/CeilingFanOnCommand.php';
 require_once __DIR__.'/CeilingFanOffCommand.php';
+require_once __DIR__.'/CeilingFanHighCommand.php';
+require_once __DIR__.'/CeilingFanMediumCommand.php';
+require_once __DIR__.'/CeilingFanLowCommand.php';
 require_once __DIR__.'/GarageDoorDownCommand.php';
 require_once __DIR__.'/GarageDoorUpCommand.php';
 require_once __DIR__.'/NoCommand.php';
@@ -80,7 +83,6 @@ $remoteControl->setCommand(2,$ceilingFanOnCommend,$ceilingFanOffCommend);
 $remoteControl->setCommand(3,$stereoOnWithCd,$stereoOffWithCd);
 
 //打印每个插槽具体类名
-echo ($remoteControl);
 $remoteControl->onButtonWasPushed(0);
 $remoteControl->offButtonWasPushed(0);
 $remoteControl->onButtonWasPushed(1);
@@ -92,6 +94,9 @@ $remoteControl->offButtonWasPushed(3);
 $remoteControl->onButtonWasPushed(4);
 $remoteControl->offButtonWasPushed(4);
 
+
+echo '--------------带着撤销按钮的遥控器----------------------------------------------------------------------
+';
 //带着撤销按钮的遥控器
 $remoteControlWithUndo = new RemoteControlWithUndo();
 $remoteControlWithUndo->setCommand(0,$livingRoomLightOn,$livingRoomLightOff);//设置客厅开关按钮一套
@@ -104,6 +109,23 @@ $remoteControlWithUndo->offButtonWasPushed(0);//关灯，撤销位于关灯按�
 $remoteControlWithUndo->onButtonWasPushed(0);//开灯，撤销位于开灯按钮
 echo $remoteControlWithUndo;
 $remoteControlWithUndo->undoButtonWasPushed();//撤销[开灯]按钮的操作
+
+
+echo '---------------------测试电扇开关---------------------------------------------------------------
+';
+//测试电扇开关
+$remoteControlWithUndo = new RemoteControlWithUndo();
+$ceilingFanMediumCommand = new CeilingFanMediumCommand($ceilingFan);
+$ceilingFanHighCommand = new CeilingFanHighCommand($ceilingFan);
+$remoteControlWithUndo->setCommand(0,$ceilingFanMediumCommand,$ceilingFanOffCommend);
+$remoteControlWithUndo->setCommand(1,$ceilingFanHighCommand,$ceilingFanOffCommend);
+$remoteControlWithUndo->onButtonWasPushed(0);//开启中档，没有上一步，设置当前按下的按钮是：开启中速
+$remoteControlWithUndo->offButtonWasPushed(0);//关闭中档,上一步是[开启中速]
+$remoteControlWithUndo->undoButtonWasPushed();//回滚到中档
+$remoteControlWithUndo->onButtonWasPushed(1);//开到高档，此时上一步还是中档
+$remoteControlWithUndo->undoButtonWasPushed();//回滚到中档
+
+
 
 
 
