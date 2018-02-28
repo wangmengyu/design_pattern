@@ -10,6 +10,7 @@ require_once __DIR__.'/../basic_command/Command.php';
 require_once __DIR__.'/../basic_command/GarageDoor.php';
 require_once __DIR__.'/../basic_command/GarageDoorOpenCommand.php';
 require_once __DIR__.'/CeilingFan.php';
+require_once __DIR__.'/CeilingFanCommand.php';
 require_once __DIR__.'/CeilingFanOnCommand.php';
 require_once __DIR__.'/CeilingFanOffCommand.php';
 require_once __DIR__.'/CeilingFanHighCommand.php';
