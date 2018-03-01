@@ -6,6 +6,8 @@ require_once __DIR__.'/Turkey.php';
 require_once __DIR__.'/TurkeyAdapter.php';
 require_once __DIR__.'/WildTurkey.php';
 require_once __DIR__.'/DuckAdapter.php';
+require_once __DIR__.'/TurkeyClassAdapter.php';
+
 /**
  *
  * Created by PhpStorm.
@@ -43,6 +45,15 @@ $mallardDuck = new MallardDuck();
 $duckAdapter = new DuckAdapter($mallardDuck);
 testTurkey($turkey);
 testTurkey($duckAdapter);
+
+$turkeyClassAdapter = new TurkeyClassAdapter($turkey);
+try {
+    $turkeyClassAdapter->gobble();
+} catch (\Exception $e){
+    var_dump($e->getMessage());
+}
+
+
 
 
 
