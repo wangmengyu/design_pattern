@@ -5,6 +5,7 @@ require_once __DIR__.'/MallardDuck.php';
 require_once __DIR__.'/Turkey.php';
 require_once __DIR__.'/TurkeyAdapter.php';
 require_once __DIR__.'/WildTurkey.php';
+require_once __DIR__.'/DuckAdapter.php';
 /**
  *
  * Created by PhpStorm.
@@ -13,9 +14,22 @@ require_once __DIR__.'/WildTurkey.php';
  * Time: 下午2:22
  * @param Duck $duck
  */
+/**
+ * 测试鸭子
+ * @param Duck $duck
+ */
 function testDuck(Duck $duck){
     $duck->quack();
     $duck->fly();
+}
+
+/**
+ * 测试火鸡
+ * @param Turkey $turkey
+ */
+function testTurkey(Turkey $turkey){
+    $turkey->gobble();
+    $turkey->fly();
 }
 
 $duck = new MallardDuck();
@@ -25,5 +39,11 @@ $turkey->fly();
 $turkeyAdapter = new TurkeyAdapter($turkey);
 testDuck($duck);
 testDuck($turkeyAdapter);
+$mallardDuck = new MallardDuck();
+$duckAdapter = new DuckAdapter($mallardDuck);
+testTurkey($turkey);
+testTurkey($duckAdapter);
+
+
 
 
