@@ -3,6 +3,7 @@ namespace DesignPatern\MetaCommand;
 
 require_once __DIR__.'/../basic_command/Command.php';
 require_once __DIR__.'/../basic_command/Light.php';
+require_once __DIR__.'/../basic_command/Tv.php';
 require_once __DIR__.'/../basic_command/LightOnCommand.php';
 require_once __DIR__.'/../basic_command/LightOffCommand.php';
 require_once __DIR__.'/../basic_command/SimpleRemoteControl.php';
@@ -24,6 +25,10 @@ require_once __DIR__.'/Stereo.php';
 require_once __DIR__.'/StereoOffCommand.php';
 require_once __DIR__.'/StereoOnWithCdCommand.php';
 require_once __DIR__.'/RemoteControlWithUndo.php';
+require_once __DIR__.'/../macro_command/MacroCommand.php';
+require_once __DIR__.'/StereoOnCommand.php';
+require_once __DIR__.'/TvOnCommand.php';
+require_once __DIR__.'/TvOffCommand.php';
 
 /**
  * Created by PhpStorm.
@@ -36,6 +41,8 @@ use DesignPatern\BasicCommand\GarageDoor;
 use DesignPatern\BasicCommand\Light;
 use DesignPatern\BasicCommand\LightOffCommand;
 use DesignPatern\BasicCommand\LightOnCommand;
+use DesignPatern\BasicCommand\Tv;
+use DesignPatern\MacroCommand\MacroCommand;
 
 $remoteControl = new RemoteControl();
 
@@ -49,8 +56,9 @@ $ceilingFan = new CeilingFan("客厅");
 $garageDoor = new GarageDoor();
 
 $stereo = new Stereo("客厅");
-//客厅音箱
-$livingRoomStereo = new Stereo("客厅");
+//客厅电视
+$tv = new Tv("客厅");
+
 
 //开客厅灯命令
 $livingRoomLightOn = new LightOnCommand($livingRoomLight);
@@ -125,6 +133,49 @@ $remoteControlWithUndo->offButtonWasPushed(0);//关闭中档,上一步是[开启
 $remoteControlWithUndo->undoButtonWasPushed();//回滚到中档
 $remoteControlWithUndo->onButtonWasPushed(1);//开到高档，此时上一步还是中档
 $remoteControlWithUndo->undoButtonWasPushed();//回滚到中档
+
+echo '---------------------测试宏命令---------------------------------------------------------------
+';
+$light = new Light("客厅");
+$stereo = new Stereo("客厅");
+$tv = new Tv("客厅");
+
+$lightOnCommand = new LightOnCommand($light);
+$lightOffCommand = new LightOffCommand($light);
+$stereoOnCommand = new StereoOnCommand($stereo);
+$stereoOffCommand = new StereoOffCommand($stereo);
+$tvOnCommand = new TvOnCommand($tv);
+$tvOffCommand = new TvOffCommand($tv);
+
+//设置开关命令数组
+$partyOn = [$lightOnCommand, $stereoOnCommand, $tvOnCommand];
+$partyOff = [$lightOffCommand, $stereoOffCommand, $tvOffCommand];
+
+//设置开命令的宏
+$partyOnMacro = new MacroCommand($partyOn);
+
+//设置关命令的宏
+$partyOffMacro = new MacroCommand($partyOff);
+
+//新建宏遥控器
+$macroRemote = new RemoteControlWithUndo();
+$macroRemote->setCommand(0,$partyOnMacro,$partyOffMacro);
+echo '-----------------点宏 开启 按钮------------------------------
+';
+$macroRemote->onButtonWasPushed(0);//按下开按钮
+echo '-----------------点宏 关闭 按钮------------------------------
+';
+$macroRemote->undoButtonWasPushed();//按撤销
+
+
+
+
+
+
+
+
+
+
 
 
 
