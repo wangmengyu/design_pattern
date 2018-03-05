@@ -64,6 +64,7 @@ class HomeTheaterFacade{
     }
 
     /**
+     *
      * 看电影
      * @param string $movie
      */
