@@ -10,21 +10,6 @@ namespace DesignPatern\encapsulating_algorithms;
 
 class Tea extends CaffeineBeverage
 {
-    /**
-     * 烧开水,重复代码
-     */
-    public function boilWater(){
-        var_dump("烧开水");
-    }
-
-    /**
-     * 重复代码
-     */
-    public function pourInCup(){
-        var_dump("倒入杯子");
-    }
-
-
     function brew()
     {
         // TODO: Implement brew() method.

@@ -20,19 +20,29 @@ abstract class CaffeineBeverage
         $this->boilWater();
         $this->brew();
         $this->pourInCup();
-        $this->addCondiments();
+        if ($this->customerWantsCondiments()) {
+            $this->addCondiments();
+        }
     }
     //研磨,抽象方法，需要由子类实现
     abstract function brew();
     //加料，抽象方法，需要由子类实现
     abstract function addCondiments();
 
-    public function boilWater(){
+    final public function boilWater(){
         var_dump("烧开水");
     }
-    public function pourInCup(){
+    final public function pourInCup(){
         var_dump("倒入杯子");
     }
 
+    /**
+     * 钩子方法，可由子类实现
+     * 默认返回true
+     * @return bool
+     */
+    public function customerWantsCondiments(){
+        return true;
+    }
 
 }

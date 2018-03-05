@@ -14,19 +14,6 @@ namespace DesignPatern\encapsulating_algorithms;
 class Coffee extends CaffeineBeverage
 {
 
-    /**
-     * 烧开水
-     */
-    public function boilWater(){
-        var_dump("烧开水");
-    }
-
-
-    public function pourInCup(){
-        var_dump("倒入杯子");
-    }
-
-
     function brew()
     {
         // TODO: Implement brew() method.
@@ -37,5 +24,20 @@ class Coffee extends CaffeineBeverage
     {
         // TODO: Implement addCondiments() method.
         var_dump("加入糖和牛奶");
+    }
+
+    public function customerWantsCondiments()
+    {
+       $answer = $this->getUserInput();
+       if (substr(strtolower($answer),0,1) == 'y') {
+           return true;
+       }
+       return false;
+    }
+
+    private function getUserInput(){
+        fwrite(STDOUT,"请输入y or n代表是否需要加入添加品:");
+        $arg = trim(fgets(STDIN));
+        return $arg;
     }
 }
