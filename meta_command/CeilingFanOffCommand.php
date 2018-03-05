@@ -18,6 +18,7 @@ class CeilingFanOffCommand extends CeilingFanCommand {
     /**
      * 执行方法，所有命令对象会实现此方法
      * 保留当前转速,以便回滚
+     *
      * 调速：关闭
      * @return mixed
      */
